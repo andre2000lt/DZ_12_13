@@ -7,12 +7,14 @@ public class Game : MonoBehaviour
     private const KeyCode StartKey = KeyCode.F;
     private const float MinYPosition = -10f;
     private const int CoinsToWin = 3;
+    private const int TimePerTry = 45;
 
     [SerializeField] private Ball _ball;
     [SerializeField] private Transform _startPosition;
     [SerializeField] private List<Coin> _coins;
     [SerializeField] private TMP_Text _message;
     [SerializeField] private Wallet _wallet;
+    [SerializeField] private Timer _timer;
 
 
     private bool _isRunning;
@@ -31,6 +33,11 @@ public class Game : MonoBehaviour
         if (_ball.transform.position.y < MinYPosition)
             LoseGame();
 
+        if (_timer.Value <= 0)
+        {
+            LoseGame();
+        }
+
         if (_wallet.CoinCount == CoinsToWin)
             WinGame();
 
@@ -47,6 +54,7 @@ public class Game : MonoBehaviour
         _ball.StartAt(_startPosition.position);
         InitCoins();
         _wallet.Reset();
+        _timer.StartTimer(45);
 
         _message.gameObject.SetActive(false);
 
@@ -55,19 +63,20 @@ public class Game : MonoBehaviour
 
     private void LoseGame()
     {
-        _ball.Die();
-
+        EndGame();
         ShowMessage(_loseMessage);
-
-        _isRunning = false;
     }
 
     private void WinGame()
     {
-        _ball.Die();
-
+        EndGame();
         ShowMessage(_winMessage);
+    }
 
+    private void EndGame()
+    {
+        _ball.Die();
+        _timer.StopTimer();
         _isRunning = false;
     }
 
