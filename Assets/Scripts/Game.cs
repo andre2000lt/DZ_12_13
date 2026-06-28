@@ -13,7 +13,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Transform _startPosition;
     [SerializeField] private List<Coin> _coins;
     [SerializeField] private TMP_Text _message;
-    [SerializeField] private Wallet _wallet;
+    [SerializeField] private CoinCollector _wallet;
     [SerializeField] private Timer _timer;
 
 

@@ -2,14 +2,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    public void Collect()
     {
-        Wallet wallet = other.GetComponent<Wallet>();
-
-        if (wallet != null)
-        {
-            wallet.Add();
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
 }

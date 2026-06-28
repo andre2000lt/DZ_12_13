@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Wallet : MonoBehaviour
+public class CoinCollector : MonoBehaviour
 {
     [SerializeField] private TMP_Text _coinCountText;
 
@@ -10,6 +10,17 @@ public class Wallet : MonoBehaviour
     private void Awake()
     {
         UpdateBallanceOutput();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Coin coin = other.GetComponent<Coin>();
+
+        if (coin != null)
+        {
+            Add();
+            coin.Collect();
+        }
     }
 
     public int Add()
